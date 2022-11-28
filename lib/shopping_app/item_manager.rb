@@ -15,7 +15,7 @@ module ItemManager
   end
 
   def items_list # Produit l'état du stock de l'instance d'élément qu'il possède au format tableau avec les colonnes ["Numéro", "Nom de l'élément", "Montant", "Quantité"].
-    kosi = Kosi::Table.new({header: %w{N° Designation Montant Quantité}}) # URL de "kosi" en Gemgile
+    kosi = Kosi::Table.new({header: %w{番号 商品名 金額 数量}}) # URL de "kosi" en Gemgile
     print kosi.render(
       stock.map do |stock|
         [
