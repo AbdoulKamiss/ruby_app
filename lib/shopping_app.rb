@@ -2,62 +2,62 @@ require_relative "shopping_app/seller"
 require_relative "shopping_app/item"
 require_relative "shopping_app/customer"
 
-seller = Seller.new("DICストア")
+seller = Seller.new("DIC Store")
 10.times{ Item.new("CPU", 40830, seller) }
-10.times{ Item.new("メモリー", 13880, seller) }
-10.times{ Item.new("マザーボード", 28980, seller) }
-10.times{ Item.new("電源ユニット", 8980, seller) }
-10.times{ Item.new("PCケース", 8727, seller) }
-10.times{ Item.new("3.5インチHDD", 10980, seller) }
-10.times{ Item.new("2.5インチSSD", 13370, seller) }
+10.times{ Item.new("Mémoire", 13880, seller) }
+10.times{ Item.new("Carte-mère", 28980, seller) }
+10.times{ Item.new("PSU", 8980, seller) }
+10.times{ Item.new("Boîtier PC", 8727, seller) }
+10.times{ Item.new("3.5 HDD", 10980, seller) }
+10.times{ Item.new("2.5 SSD", 13370, seller) }
 10.times{ Item.new("M.2 SSD", 12980, seller) }
-10.times{ Item.new("CPUクーラー", 13400, seller) }
-10.times{ Item.new("グラフィックボード", 23800, seller) }
+10.times{ Item.new("Refroidisseur de CPU", 13400, seller) }
+10.times{ Item.new("Carte graphique", 23800, seller) }
 
-puts "🤖 あなたの名前を教えてください"
+puts "🤖 Quel est votre nom ?"
 customer = Customer.new(gets.chomp)
 
-puts "🏧 ウォレットにチャージする金額を入力にしてください"
+puts "🏧 Entrez le montant à débiter sur le portefeuille."
 customer.wallet.deposit(gets.chomp.to_i)
 
-puts "🛍️ ショッピングを開始します"
+puts "🛍️ Commencer les achats"
 end_shopping = false
 while !end_shopping do
-  puts "📜 商品リスト"
+  puts "📜 Liste des produits."
   seller.items_list
 
-  puts "️️⛏ 商品番号を入力してください"
+  puts "️️⛏ Veuillez entrer le numéro du produit"
   number = gets.to_i
 
-  puts "⛏ 商品数量を入力してください"
+  puts "⛏ Veuillez entrer la quantité de marchandises"
   quantity = gets.to_i
 
   items = seller.pick_items(number, quantity)
 
   items&.each{|item| customer.cart.add(item) }
 
-  puts "🛒 カートの中身"
+  puts "🛒 Contenu du panier."
   customer.cart.items_list
-  puts "🤑 合計金額: #{customer.cart.total_amount}"
+  puts "🤑 Montant total: #{customer.cart.total_amount}"
 
-  puts "😭 買い物を終了しますか？(yes/no)"
+  puts "😭 Tu veux finir tes courses ?(yes/no)"
   end_shopping = gets.chomp == "yes"
 end
 
-puts "💸 購入を確定しますか？(yes/no)"
+puts "💸 Voulez-vous finaliser l'achat ?(yes/no)"
 customer.cart.check_out if gets.chomp == "yes"
 
-puts "୨୧┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈結果┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈୨୧"
-puts "️🛍️ ️#{customer.name}の所有物"
+puts "୨୧┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈Résultat┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈୨୧"
+puts "️🛍️ Propriété de ️#{customer.name}"
 customer.items_list
-puts "😱👛 #{customer.name}のウォレット残高: #{customer.wallet.balance}"
+puts "😱👛 Solde du portefeuille de #{customer.name}: #{customer.wallet.balance}"
 
-puts "📦 #{seller.name}の在庫状況"
+puts "📦 État des stocks de #{seller.name}"
 seller.items_list
-puts "😻👛 #{seller.name}のウォレット残高: #{seller.wallet.balance}"
+puts "😻👛 Solde du portefeuille de #{seller.name}: #{seller.wallet.balance}"
 
-puts "🛒 カートの中身"
+puts "🛒 Contenu du panier."
 customer.cart.items_list
-puts "🌚 合計金額: #{customer.cart.total_amount}"
+puts "🌚 Montant total: #{customer.cart.total_amount}"
 
-puts "🎉 終了"
+puts "🎉 Fin"
